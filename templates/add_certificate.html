@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Add Certificate — AchieveHub{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-7">
+    <div class="card card-form p-4">
+      <h3 class="mb-3">Add a new achievement</h3>
+      <form method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label class="form-label">Title</label>
+          <input type="text" name="title" class="form-control" placeholder="e.g. Smart India Hackathon 2026 — Winner" required autofocus>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Category</label>
+            <select name="category" class="form-select">
+              {% for c in categories %}
+                <option value="{{ c }}">{{ c }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Issue Date</label>
+            <input type="date" name="issue_date" class="form-control" max="{{ today }}">
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Issued By</label>
+          <input type="text" name="issuer" class="form-control" placeholder="e.g. AICTE, Coursera, College Sports Cell">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Description</label>
+          <textarea name="description" rows="3" class="form-control" placeholder="Briefly describe the achievement..."></textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="file">Certificate File (PDF/JPG/PNG, max 8MB)</label>
+          <input type="file" name="file" id="file" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
+        </div>
+        <div class="alert alert-info small">
+          <i class="bi bi-info-circle"></i> Your submission will appear on the public showcase only after an admin verifies it.
+        </div>
+        <button type="submit" class="btn btn-brand w-100">Submit for Verification</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

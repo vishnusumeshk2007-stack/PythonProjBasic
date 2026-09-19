@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Showcase — AchieveHub{% endblock %}
+
+{% block content %}
+<div class="hero">
+  <div class="row align-items-center">
+    <div class="col-lg-7">
+      <h1 class="display-6">Celebrate every achievement.</h1>
+      <p class="lead mb-0">A shared showcase of verified student certificates, awards and accomplishments across the college.</p>
+    </div>
+    <div class="col-lg-5 d-flex gap-3 justify-content-lg-end mt-4 mt-lg-0 flex-wrap">
+      <div class="stat-pill text-center flex-fill">
+        <div class="fs-4 fw-bold">{{ stats.students }}</div>
+        <div class="small">Students</div>
+      </div>
+      <div class="stat-pill text-center flex-fill">
+        <div class="fs-4 fw-bold">{{ stats.verified }}</div>
+        <div class="small">Verified</div>
+      </div>
+      <div class="stat-pill text-center flex-fill">
+        <div class="fs-4 fw-bold">{{ stats.total }}</div>
+        <div class="small">Submitted</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form method="get" class="row g-2 mb-4">
+  <div class="col-md-8">
+    <input type="text" name="q" value="{{ search }}" class="form-control" placeholder="Search achievements by title...">
+  </div>
+  <div class="col-md-3">
+    <select name="category" id="categoryFilter" class="form-select">
+      <option value="">All categories</option>
+      {% for c in categories %}
+        <option value="{{ c }}" {% if c == selected_category %}selected{% endif %}>{{ c }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-md-1">
+    <button class="btn btn-brand w-100" type="submit"><i class="bi bi-search"></i></button>
+  </div>
+</form>
+
+{% if certificates %}
+<div class="row g-4">
+  {% for cert in certificates %}
+  <div class="col-sm-6 col-lg-4">
+    <div class="card cert-card p-3">
+      <div class="d-flex justify-content-between align-items-start mb-2">
+        <span class="badge badge-category rounded-pill">{{ cert.category }}</span>
+        <span class="small text-success"><i class="bi bi-patch-check-fill"></i> Verified</span>
+      </div>
+      <h5 class="mb-1">{{ cert.title }}</h5>
+      <p class="text-muted small mb-2">{{ cert.issuer or "—" }} {% if cert.issue_date %}&middot; {{ cert.issue_date.strftime('%b %Y') }}{% endif %}</p>
+      <p class="small text-truncate-2 mb-3">{{ (cert.description or "")[:110] }}{% if cert.description and cert.description|length > 110 %}…{% endif %}</p>
+      <div class="d-flex justify-content-between align-items-center mt-auto">
+        <a href="{{ url_for('public_profile', user_id=cert.owner.id) }}" class="small text-decoration-none">
+          <i class="bi bi-person-circle"></i> {{ cert.owner.name }}
+        </a>
+        <a href="{{ url_for('view_certificate', cert_id=cert.id) }}" class="btn btn-sm btn-outline-primary">View</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="text-center py-5 text-muted">
+  <i class="bi bi-inbox display-4 d-block mb-3"></i>
+  No verified achievements match your search yet.
+</div>
+{% endif %}
+{% endblock %}

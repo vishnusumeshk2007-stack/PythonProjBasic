@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}{{ cert.title }} — AchieveHub{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card cert-card p-4">
+      <div class="d-flex justify-content-between align-items-start mb-2 flex-wrap gap-2">
+        <span class="badge badge-category rounded-pill">{{ cert.category }}</span>
+        {% if cert.status == "Verified" %}
+          <span class="status-verified"><i class="bi bi-patch-check-fill"></i> Verified</span>
+        {% elif cert.status == "Pending" %}
+          <span class="status-pending"><i class="bi bi-hourglass-split"></i> Pending Verification</span>
+        {% else %}
+          <span class="status-rejected"><i class="bi bi-x-circle-fill"></i> Rejected</span>
+        {% endif %}
+      </div>
+      <h3>{{ cert.title }}</h3>
+      <p class="text-muted mb-3">
+        Issued by {{ cert.issuer or "—" }}
+        {% if cert.issue_date %} &middot; {{ cert.issue_date.strftime('%d %b %Y') }}{% endif %}
+      </p>
+      <p>{{ cert.description or "No description provided." }}</p>
+
+      <div class="mb-3">
+        <a href="{{ url_for('public_profile', user_id=cert.owner.id) }}" class="text-decoration-none">
+          <i class="bi bi-person-circle"></i> Submitted by {{ cert.owner.name }}
+        </a>
+      </div>
+
+      {% if cert.admin_remark %}
+      <div class="alert alert-secondary small">
+        <strong>Admin remark:</strong> {{ cert.admin_remark }}
+      </div>
+      {% endif %}
+
+      {% if cert.file_path %}
+        {% if cert.file_path.lower().endswith('.pdf') %}
+          <a href="{{ url_for('uploaded_file', filename=cert.file_path) }}" target="_blank" class="btn btn-brand">
+            <i class="bi bi-file-earmark-pdf"></i> View Certificate (PDF)
+          </a>
+        {% else %}
+          <img src="{{ url_for('uploaded_file', filename=cert.file_path) }}" class="img-fluid rounded border mt-2" alt="Certificate">
+        {% endif %}
+      {% endif %}
+
+      <a href="javascript:history.back()" class="btn btn-link mt-3">&larr; Back</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

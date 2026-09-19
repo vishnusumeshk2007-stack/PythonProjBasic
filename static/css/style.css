@@ -1,0 +1,83 @@
+:root {
+  --brand-1: #4f46e5;
+  --brand-2: #7c3aed;
+  --brand-soft: #eef2ff;
+}
+
+body {
+  font-family: 'Poppins', system-ui, sans-serif;
+  background-color: #f7f7fb;
+  color: #1f2333;
+}
+
+.navbar {
+  background: linear-gradient(90deg, var(--brand-1), var(--brand-2));
+}
+
+.hero {
+  background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
+  color: #fff;
+  border-radius: 1rem;
+  padding: 3rem 2rem;
+  margin-bottom: 2rem;
+}
+
+.hero h1 { font-weight: 700; }
+
+.stat-pill {
+  background: rgba(255,255,255,0.15);
+  border-radius: .75rem;
+  padding: .75rem 1.25rem;
+  backdrop-filter: blur(4px);
+}
+
+.cert-card {
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0 4px 16px rgba(31, 35, 51, 0.06);
+  transition: transform .15s ease, box-shadow .15s ease;
+  height: 100%;
+}
+
+.cert-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(31, 35, 51, 0.12);
+}
+
+.badge-category {
+  background-color: var(--brand-soft);
+  color: var(--brand-1);
+  font-weight: 600;
+}
+
+.status-verified { color: #198754; }
+.status-pending { color: #b45309; }
+.status-rejected { color: #dc2626; }
+
+.avatar-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.card-form {
+  border-radius: 1rem;
+  border: none;
+  box-shadow: 0 4px 20px rgba(31,35,51,0.08);
+}
+
+.form-label { font-weight: 500; }
+
+.btn-brand {
+  background: linear-gradient(90deg, var(--brand-1), var(--brand-2));
+  color: #fff;
+  border: none;
+}
+.btn-brand:hover { color: #fff; opacity: .92; }

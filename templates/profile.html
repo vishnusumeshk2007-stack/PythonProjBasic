@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}{{ profile_user.name }} — AchieveHub{% endblock %}
+
+{% block content %}
+<div class="card cert-card p-4 mb-4">
+  <div class="d-flex align-items-center gap-3 flex-wrap">
+    <div class="avatar-circle">{{ profile_user.name[0]|upper }}</div>
+    <div>
+      <h4 class="mb-0">{{ profile_user.name }}</h4>
+      <div class="text-muted small">{{ profile_user.department or "Department not set" }} {% if profile_user.roll_no %}&middot; {{ profile_user.roll_no }}{% endif %}</div>
+    </div>
+    <div class="ms-auto text-center">
+      <div class="fs-4 fw-bold status-verified">{{ certificates|length }}</div>
+      <div class="small text-muted">Verified Achievements</div>
+    </div>
+  </div>
+</div>
+
+{% if certificates %}
+<div class="row g-4">
+  {% for cert in certificates %}
+  <div class="col-sm-6 col-lg-4">
+    <div class="card cert-card p-3">
+      <span class="badge badge-category rounded-pill mb-2 align-self-start">{{ cert.category }}</span>
+      <h6 class="mb-1">{{ cert.title }}</h6>
+      <p class="text-muted small mb-2">{{ cert.issuer or "—" }} {% if cert.issue_date %}&middot; {{ cert.issue_date.strftime('%b %Y') }}{% endif %}</p>
+      <a href="{{ url_for('view_certificate', cert_id=cert.id) }}" class="btn btn-sm btn-outline-primary mt-auto">View</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="text-center py-5 text-muted">
+  <i class="bi bi-award display-4 d-block mb-3"></i>
+  No verified achievements yet.
+</div>
+{% endif %}
+{% endblock %}
