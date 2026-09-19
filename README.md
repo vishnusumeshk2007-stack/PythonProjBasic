@@ -1,8 +1,15 @@
-# College Achievement & Certificate Showcase Portal
+# AchieveHub: College Achievement & Certificate Showcase Portal
 
 A web portal where students upload achievement certificates, an admin verifies
 them, and verified achievements appear on a public showcase and on each
 student's profile page.
+
+## 🚀 Live Demo
+
+**https://achievehub-1yhh.onrender.com/**
+
+> Hosted on Render. If the app has been idle, the first load may take a
+> few seconds while the server wakes up.
 
 **Stack:** Flask, Flask-SQLAlchemy, Flask-Login, SQLite, Bootstrap 5, vanilla JS.
 
